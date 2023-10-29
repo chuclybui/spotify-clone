@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 
 import { ProductWithPrice } from "@/types";
 
-const getActiveProductsWithPrices = async (): Promise<ProductWithPrice> => {
+const getActiveProductsWithPrices = async (): Promise<ProductWithPrice[]> => {
   const supabase = createServerComponentClient({
     cookies: cookies
   });
