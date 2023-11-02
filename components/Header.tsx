@@ -13,6 +13,7 @@ import { useUser } from '@/hooks/useUser';
 import usePlayer from '@/hooks/usePlayer';
 
 import Button from './Button';
+import { TbPlaylist } from 'react-icons/tb';
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -40,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({
     } else {
       toast.success('Logged out!')
     }
-  }
+  }  
   return (
     <div className={twMerge(`
      h-fit
@@ -95,7 +96,9 @@ const Header: React.FC<HeaderProps> = ({
           md:hidden
           gap-x-2
           items-center'>
-            <button className='
+            <button
+            onClick={() => router.push('/')}
+            className='
             rounded-full
             bg-white
             p-2
@@ -107,7 +110,9 @@ const Header: React.FC<HeaderProps> = ({
             '>
               <HiHome className='text-black' size={20} />
             </button>
-            <button className='
+            <button 
+            onClick={() => router.push('/search')}
+            className='
             rounded-full
             bg-white
             p-2
@@ -118,7 +123,21 @@ const Header: React.FC<HeaderProps> = ({
             transition
             '>
               <BiSearch className='text-black' size={20} />
-            </button>          
+            </button>     
+            <button 
+            onClick={() => router.push('/songlibrary')}
+            className='
+            rounded-full
+            bg-white
+            p-2
+            flex
+            items-center
+            justify-center
+            hover:opacity-75
+            transition
+            '>
+               <TbPlaylist className="text-black" size={20} />
+            </button>       
 
           </div>
           <div

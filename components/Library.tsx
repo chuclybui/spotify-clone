@@ -11,13 +11,16 @@ import useOnPlay from "@/hooks/useOnPlay";
 import useSubscribeModal from "@/hooks/useSubscribeModal";
 
 import MediaItem from "./MediaItem";
+import { twMerge } from "tailwind-merge";
 
 interface LibraryProps {
   songs: Song[];
+  libraryPageClassName?: boolean;
 }
  
 const Library: React.FC<LibraryProps> = ({
-  songs
+  songs,
+  libraryPageClassName
 }) => {
   const subscribeModal = useSubscribeModal();
   const authModal = useAuthModal();
@@ -45,19 +48,25 @@ const Library: React.FC<LibraryProps> = ({
       px-5
       pt-4"
       >
-        <div className="
+        <div className={twMerge(`
         inline-flex
         items-center
-        gap-x-2"
+        `,
+       libraryPageClassName ? "gap-x-4" : "gap-x-2")}
         >
-          <TbPlaylist className="text-neutral-400" size={26} />
-          <p className="text-neutral-400 font-medium text-md">
+          <TbPlaylist className="text-neutral-400" size={libraryPageClassName ? 26 : 30} />
+          <p className={twMerge(`
+          text-neutral-400
+           font-medium           
+          `,
+          libraryPageClassName ? "text-xl": "text-md")}
+          >
              Your Library!
           </p>
         </div>
         <AiOutlinePlus
         onClick={onClick}
-        size={20}
+        size={libraryPageClassName ? 26: 20 }
         className="
         text-neutral-400
         cursor-pointer
@@ -78,7 +87,9 @@ const Library: React.FC<LibraryProps> = ({
           <MediaItem
           onClick={(id:string)=> onPlay(id)}
           key={item.id}
-          data={item}/>         
+          data={item}
+          libraryPageClassName
+          />         
         ))}
 
       </div>

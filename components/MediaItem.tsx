@@ -3,16 +3,19 @@ import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";
+import { twMerge } from "tailwind-merge";
 
 
 interface MediaItemProps {
   data: Song;
   onClick?: (id: string) => void;
+  libraryPageClassName?:boolean
 }
 
 const MediaItem: React.FC<MediaItemProps>= ({
   data,
-  onClick
+  onClick,
+  libraryPageClassName
 }) => {
   const player = usePlayer();
   const imageUrl = useLoadImage(data)
@@ -36,13 +39,14 @@ const MediaItem: React.FC<MediaItemProps>= ({
     p-2
     rounded-md">
       <div
-      className="
+      className={twMerge(`
       relative
       rounded-md
-      min-h-[48px]
-      min-w-[48px]
-      overflow-hidden
-      ">
+      
+      overflow-hidden`,
+      libraryPageClassName ? "min-h-[100px] min-w-[100px]": "min-h-[48px] min-w-[48px]"
+    )}      
+      >
         <Image
         fill
         src={imageUrl || '/images/liked.png'}
@@ -56,10 +60,12 @@ const MediaItem: React.FC<MediaItemProps>= ({
       gap-y-1
       overflow-hidden
       ">
-        <p className="text-white truncate">
+        <p className={twMerge(`text-white truncate`,
+        libraryPageClassName? "text-lg": "text-base")}>
           {data.title}
         </p>
-        <p className="text-neutral-400 text-sm truncate">
+        <p className={twMerge(`text-neutral-400 truncate`,
+        libraryPageClassName? "text-base": "text-sm")}>
           {data.author}
         </p>
       </div>
